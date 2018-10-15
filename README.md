@@ -73,7 +73,7 @@ Electronアプリとして2台同時での接続動作を確認できるサン�
 ## メソッド詳細
 ### setAppClientID
 
-アプリ認証、SDK認証を行ないます。 JINS MEME SDK for NodeJS を利用するには、まずはじめにこのAPIを1度実行する必要があります。無効なコードだった場合は以降のプロセスでJINS MEMEと接続ができません。複数MEMEで使用する場合はどれかのインスタンスで1回実行すればOKです。
+[JINS MEME DEVELOPERS](https://developers.jins.com/)で取得した認証情報を利用しアプリ認証を行ないます。 JINS MEME SDK for NodeJS を利用するには、まずはじめにこのAPIを1度実行する必要があります。無効なコードだった場合は以降のプロセスでJINS MEMEと接続ができません。複数MEMEで使用する場合はどれかのインスタンスで1回実行すればOKです。
 
 #### 構文
 
