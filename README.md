@@ -47,10 +47,6 @@ noble = require('noble');
     - MIT License
     - ^3.1.0
 
-- electron
-    - MIT License
-    - ^2.0.8
-
 ## ファイル
 
 Electronアプリとして2台同時での接続動作を確認できるサンプルを実装しています。
