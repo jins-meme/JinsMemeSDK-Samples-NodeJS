@@ -75,8 +75,6 @@ Electronアプリとして2台同時での接続動作を確認できるサン�
 
 [JINS MEME DEVELOPERS](https://developers.jins.com/)で取得した認証情報を利用しアプリ認証を行ないます。 JINS MEME SDK for NodeJS を利用するには、まずはじめにこのAPIを1度実行する必要があります。無効なコードだった場合は以降のプロセスでJINS MEMEと接続ができません。複数MEMEで使用する場合はどれかのインスタンスで1回実行すればOKです。
 
-#### 構文
-
 `setAppClientID(appClientId, clientSecret, successCallback, errorCallback);`
 - appClientId: JINS MEME DEVELOPERS で取得したclient_id
 - clientSecret: JINS MEME DEVELOPERS で取得したclient_secret
@@ -87,24 +85,17 @@ Electronアプリとして2台同時での接続動作を確認できるサン�
 
 インスタンスの作成を行います。複数インスタンスで利用する場合はmain内の各種処理で振り分けが必要になります。
 
-#### 構文
-
 `let memeDevice = new memeDevice();`
-
 
 ### scan
 
 デバイスのBLE scanを開始し、MEMEの検索を開始します。scanは20秒で自動で止まります。見つかった端末はdevice-discoveredのイベントリスナ経由でdevice情報を通知します。
-
-#### 構文
 
 `memeDevice.scan();`
 
 ### connect
 
 接続するMEMEのMACアドレスを指定しRTモードデータに対するコールバック関数をセットし接続します。
-
-#### 構文
 
 `memeDevice.connect(mac_address_without_coron, callback[, mode]);`
 - mac_address_without_coron: コロンを含まないMAC Address文字列をセットします
@@ -139,8 +130,6 @@ data = {
 
 接続するMEMEが決まっている場合にMACアドレスを指定してscanを開始し、該当デバイスが見つかった場合connectを同時に行います。
 
-#### 構文
-
 `memeDevice.scanAndConnect(mac_address_without_coron,  callback);`
 - mac_address_without_coron: コロンを含まないMAC Address文字列をセットします
 - callback: リアルタイムモード受信時のコールバック関数をセットします
@@ -149,23 +138,17 @@ data = {
 
 接続状態にある時、データ送信を開始します。
 
-#### 構文
-
 `memeDevice.startDataReport();`
 
 ### stopDataReport
 
 接続状態にある時、データ送信を終了します。
 
-#### 構文
-
 `memeDevice.stopDataReport();`
 
 ### disconnect
 
 接続中のMEMEと切断します。
-
-#### 構文
 
 `memeDevice.disconnect();`
 
