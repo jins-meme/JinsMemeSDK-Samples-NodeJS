@@ -1,6 +1,7 @@
 # JinsMemeSDK-Electron
 
 JINS MEME SDK for Electron using noble BLE library. Works on Windows and Mac!
+
 nobleを利用したElectron用JINS MEME SDKです。WindowsとMacで動作します!
 
 ## 概要
@@ -10,7 +11,7 @@ nobleを利用したElectron用JINS MEME SDKです。WindowsとMacで動作し�
 
 ## License
 
-
+[JINS MEME 利用規約](https://jins-meme.com/ja/terms)に準じます。
 
 ## Change Log - 更新履歴
 
@@ -24,11 +25,12 @@ ver. 0.9.6: Initial beta release.
 
 - noble
     - MacのBLEライブラリ
-    - Windowsでドライバをインストールするとこちらのライブラリも使用できますが、現在その方式はサポートしていません。
+    - Windowsでドライバをインストールするとこのライブラリも使用できますが、現在その方式はサポートしていません。
     - MIT License
 - noble-uwp
     - Windows10(Fall creators update以降)のBLEライブラリ
     - MIT License
+    
 nobleかnoble-uwpのどちらか片方が必要です。現状は以下のコードで読み込むパッケージを分岐しています。
 
  ```
@@ -46,6 +48,7 @@ noble = require('noble');
 ## 動作の流れ
 
 以下が最小限の実行シーケンスとなります
+
 - setAppClientID によるSDK認証を実行
 - memeDeviceインスタンスの作成
 - scanによるMEMEの検索
@@ -61,17 +64,15 @@ noble = require('noble');
 
 #### 構文
 
-setAppClientID(appClientId, clientSecret, successCallback, errorCallback);
-
+`setAppClientID(appClientId, clientSecret, successCallback, errorCallback);`
 
 ### memeDevice
 
-インスタンスの作成を行います。
-複数インスタンスで利用する場合はmain内の各種処理で振り分けが必要になります。
+インスタンスの作成を行います。複数インスタンスで利用する場合はmain内の各種処理で振り分けが必要になります。
 
 #### 構文
 
-let memeDevice = new memeDevice();
+`let memeDevice = new memeDevice();`
 
 
 ### scan
@@ -80,7 +81,7 @@ let memeDevice = new memeDevice();
 
 #### 構文
 
-memeDevice.scan();
+`memeDevice.scan();`
 
 ### connect
 
@@ -88,10 +89,10 @@ memeDevice.scan();
 
 #### 構文
 
-memeDevice.connect('mac_address_without_coron', callback[, mode]);
+`memeDevice.connect('mac_address_without_coron', callback[, mode]);`
 
-mode = 0: do nothing on error（default）
-mode = 1: retry connect once
+- mode = 0: do nothing on error（default）
+- mode = 1: retry connect once
 
 ### scanAndConnect
 
@@ -99,7 +100,7 @@ mode = 1: retry connect once
 
 #### 構文
 
-memeDevice.scanAndConnect('mac_address_without_coron',  callback);
+`memeDevice.scanAndConnect('mac_address_without_coron',  callback);`
 
 
 ### startDataReport
@@ -108,7 +109,7 @@ memeDevice.scanAndConnect('mac_address_without_coron',  callback);
 
 #### 構文
 
-memeDevice.startDataReport();
+`memeDevice.startDataReport();`
 
 
 ### stopDataReport
@@ -117,7 +118,7 @@ memeDevice.startDataReport();
 
 #### 構文
 
-memeDevice.stopDataReport();
+`memeDevice.stopDataReport();`
 
 
 ### disconnect
@@ -126,7 +127,7 @@ memeDevice.stopDataReport();
 
 #### 構文
 
-memeDevice.disconnect();
+`memeDevice.disconnect();`
 
 
 
@@ -136,26 +137,33 @@ memeDevice.disconnect();
 scan時にデバイスが見つかった時に、device情報のイベントリスナ、連番id、macアドレスなどを通知します。
 electronの場合はこれの情報をrendererのダイアログに送ることでmain側にロジックを配置することが可能になります。
 
+```
 memeDevice.on('device-discovered', (device) => {
   //デバイス情報を処理する
 })
+```
 
 ### device-status
 
 接続・切断の状態が変わった時に通知します。
 0: 切断
 1: 接続
+
+```
 memeDevice1.on('device-status', (arg) => {
   //
 });
+```
 
 ## 実装のヒント
 ### 接続後にすぐデータ送信を開始する
 
 接続後に自動的にデータ送信を開始したい場合は、device-status
+
+```
 memeDevice1.on('device-status', (status) => {
   if(status == 1){
     memeDevice.startDataReport();
   }
 });
-
+```
