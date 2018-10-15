@@ -1,14 +1,14 @@
 # JinsMemeSDK-Electron
 
-JINS MEME SDK for Electron using noble BLE library. Works on Windows and Mac!
+JINS MEME SDK for Node.js using noble BLE library. Works on Windows and Mac!
 
-nobleを利用したElectron用JINS MEME SDKです。WindowsとMacで動作します!
+nobleを利用したNode.js用JINS MEME SDKです。WindowsとMacで動作します!
 
 ## 概要
 
-- Electronにおいて、JINS MEMEと通信を行うSDKです。
-- mainプロセスにも配置できるよう、インタラクションが必要な部分はイベントハンドラを使用しています。
-- 複数台のJINS MEMEとの通信に対応しています(6台の同時通信まで確認済み)。
+- Node.jsにおいて、JINS MEMEと通信を行うSDKです。
+- Electronのmainプロセスにも配置できるよう、インタラクションが必要な部分はイベントハンドラを使用しています。
+- 複数台のJINS MEMEとの通信に対応しています(6台の同時通信まで確認済み@Windows10)。
 
 ## License
 
@@ -53,17 +53,18 @@ noble = require('noble');
 
 ## ファイル
 
-2台での接続をサンプル実装しています。
-- memelib.min.js
-- index.html
-- main.js
-- package.json
+Electronアプリとして2台での接続動作を確認できるサンプルを実装しています。
+- memelib.min.js: SDK本体
+- main.js: メインプロセス
+- index.html: レンダラープロセス
+`npx electron src`
 
 
 ## 動作の流れ
 
 以下が最小限の実行シーケンスとなります
 
+- requireによるmemelibの読み込み
 - setAppClientID によるSDK認証を実行
 - memeDeviceインスタンスの作成
 - scanによるMEMEの検索
@@ -75,11 +76,15 @@ noble = require('noble');
 ## メソッド詳細
 ### setAppClientID
 
-アプリ認証、SDK認証を行ないます。 JINS MEME SDK for Electron を利用するには、まずはじめにこのAPIを1度実行する必要があります。無効なコードだった場合は以降のプロセスでライブラリが使用できなくなります。複数MEMEで使用する場合でも1回でOKです。
+アプリ認証、SDK認証を行ないます。 JINS MEME SDK for Electron を利用するには、まずはじめにこのAPIを1度実行する必要があります。無効なコードだった場合は以降のプロセスでJINS MEMEと接続ができません。複数MEMEで使用する場合はどれかのインスタンスで1回実行すればOKです。
 
 #### 構文
 
 `setAppClientID(appClientId, clientSecret, successCallback, errorCallback);`
+- appClientId: JINS MEME DEVELOPERS で取得したclient_id
+- clientSecret: JINS MEME DEVELOPERS で取得したclient_secret
+- successCallback: 認証成功時の処理
+- errorCallback: 認証失敗時の処理
 
 ### memeDevice
 
@@ -92,7 +97,7 @@ noble = require('noble');
 
 ### scan
 
-デバイスのBLE scanを開始し、MEMEの検索を開始します。scanは20秒で自動で止まります。見つかった端末はdevice-discoveredのイベントリスナ経由で
+デバイスのBLE scanを開始し、MEMEの検索を開始します。scanは20秒で自動で止まります。見つかった端末はdevice-discoveredのイベントリスナ経由でdevice情報を通知します。
 
 #### 構文
 
@@ -104,10 +109,34 @@ noble = require('noble');
 
 #### 構文
 
-`memeDevice.connect('mac_address_without_coron', callback[, mode]);`
+`memeDevice.connect(mac_address_without_coron, callback[, mode]);`
+- mac_address_without_coron: コロンを含まないMAC Address文字列をセットします
+- callback: リアルタイムモード受信時のコールバック関数をセットします
+- mode: 接続のオプション設定を行います
+    - mode = 0: do nothing on error（default）
+    - mode = 1: retry connect once
 
-- mode = 0: do nothing on error（default）
-- mode = 1: retry connect once
+callbackではdataオブジェクトとして以下のデータが渡されます。
+```
+data = {
+      blinkSpeed: /*瞬目速度*/,
+      blinkStrength: /*瞬目強度*/,
+      roll: /*角度R*/,
+      pitch: /*角度P*/,
+      yaw: /*角度Y*/,
+      accX: /*加速度X*/,
+      accY: /*加速度Y*/,
+      accZ: /*加速度Z*/,
+      fitError: /*装着フラグ(使用非推奨)*/,
+      walking: /*歩行フラグ*/,
+      noiseStatus: /*ノイズ状態*/,
+      powerLeft: /*電池残量5段階*/,
+      eyeMoveUp: /*視線移動上*/,
+      eyeMoveDown: /*視線移動下*/,
+      eyeMoveLeft: /*視線移動ひだり*/,
+      eyeMoveRight: /*視線移動右*/
+    };
+```
 
 ### scanAndConnect
 
@@ -115,8 +144,9 @@ noble = require('noble');
 
 #### 構文
 
-`memeDevice.scanAndConnect('mac_address_without_coron',  callback);`
-
+`memeDevice.scanAndConnect(mac_address_without_coron,  callback);`
+- mac_address_without_coron: コロンを含まないMAC Address文字列をセットします
+- callback: リアルタイムモード受信時のコールバック関数をセットします
 
 ### startDataReport
 
@@ -126,7 +156,6 @@ noble = require('noble');
 
 `memeDevice.startDataReport();`
 
-
 ### stopDataReport
 
 接続状態にある時、データ送信を終了します。
@@ -134,7 +163,6 @@ noble = require('noble');
 #### 構文
 
 `memeDevice.stopDataReport();`
-
 
 ### disconnect
 
@@ -144,12 +172,10 @@ noble = require('noble');
 
 `memeDevice.disconnect();`
 
-
-
 ## イベントリスナ
 ### device-discovered
 
-scan時にデバイスが見つかった時に、device情報のイベントリスナ、連番id、macアドレスなどを通知します。
+scan中にデバイスが見つかった時に通知するdevice情報のイベントリスナ、連番id、macアドレスなどを通知します。
 electronの場合はこれの情報をrendererのダイアログに送ることでmain側にロジックを配置することが可能になります。
 
 ```
@@ -158,17 +184,30 @@ memeDevice.on('device-discovered', (device) => {
 })
 ```
 
+deviceは以下のオブジェクト構造をとります。
+```
+device = {
+      idx: /**/,
+      peripheral: /*peripheral情報*/,
+      mac_addr: /*mac_addr*/,
+      name: /*localName*/,
+      rssi: /*rssi*/
+    };
+```
+
 ### device-status
 
 接続・切断の状態が変わった時に通知します。
-0: 切断
-1: 接続
 
 ```
-memeDevice1.on('device-status', (arg) => {
+memeDevice1.on('device-status', (status) => {
   //
 });
 ```
+
+- status: 0: 切断
+- status: 1: 接続
+
 
 ## 実装のヒント
 ### 接続後にすぐデータ送信を開始する
