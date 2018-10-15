@@ -1,8 +1,8 @@
 # JinsMemeSDK-NodeJS
 
-JINS MEME SDK for Node.js using noble BLE library. Works on Windows and Mac!
+JINS MEME SDK for Node.js using noble BLE library. Works on Windows and Mac! (May be on Linux too).
 
-nobleを利用したNode.js用JINS MEME SDKです。WindowsとMacで動作します!
+nobleを利用したNode.js用JINS MEME SDKです。WindowsとMacで(おそらくLinuxでも)動作します!
 
 ## 概要
 
