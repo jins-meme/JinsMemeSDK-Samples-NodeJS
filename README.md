@@ -36,9 +36,9 @@ nobleかnoble-uwpのどちらか片方が必要です。現状は以下のコー
 
  ```
 if(process.platform === 'win32') {
-noble = require('noble-uwp');
- } else {
-noble = require('noble');
+    noble = require('noble-uwp');
+} else {
+    noble = require('noble');
 }
 ```
 
@@ -47,22 +47,27 @@ noble = require('noble');
     - MIT License
     - ^3.1.0
 
-## ファイル
+## Sample
 
-Electronアプリとして2台同時での接続動作を確認できるサンプルを実装しています。
-- memelib.min.js: SDK本体
-- main.js: メインプロセス
-- index.html: レンダラープロセス
-
-`npx electron src` で実行できます。
-
+- Electronアプリ(2台同時での接続動作を確認できるサンプル)
+    - package.json.mac: mac用(package.json にrenameして使用)
+    - package.json.win10: win10用(package.json にrenameして使用)
+    - src/memelib.min.js: SDK本体
+    - src/main.js: メインプロセス
+    - src/index.html: レンダラープロセス
+- 手順
+    1. git clone
+    1. main.js内のアプリ認証(app_id/app_secret)情報を記載
+    1. Win10の場合はElectronのリビルド[Building for electron](https://github.com/jasongin/noble-uwp)
+    1. `npx electron src`
+    
 
 ## 動作の流れ
 
 以下が最小限の実行シーケンスとなります
 
 - requireによるmemelibの読み込み
-- setAppClientID によるSDK認証を実行
+- setAppClientID によるアプリ認証を実行
 - memeDeviceインスタンスの作成
 - scanによるMEMEの検索
 - connectによるMEMEへの接続
