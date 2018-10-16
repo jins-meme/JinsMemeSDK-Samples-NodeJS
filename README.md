@@ -49,18 +49,27 @@ if(process.platform === 'win32') {
 
 ## Sample
 
-- Electronアプリ(2台同時での接続動作を確認できるサンプル)
-    - package.json.mac: mac用(package.json にrenameして使用)
-    - package.json.win10: win10用(package.json にrenameして使用)
-    - src/memelib.min.js: SDK本体
-    - src/main.js: メインプロセス
-    - src/index.html: レンダラープロセス
-- 手順
-    1. git clone
-    1. main.js内のアプリ認証(app_id/app_secret)情報を記載
-    1. Win10の場合はElectronのリビルド[Building for electron](https://github.com/jasongin/noble-uwp)
-    1. `npx electron src`
-    
+- Nodeスクリプト
+    - Files
+        - meme_sample.js
+    - 手順
+        1. git clone
+        1. npm install **Prerequisites**
+        1. meme_sample.js内のアプリ認証(app_id/app_secret)情報、接続するMEMEのMACアドレスを小文字で記載(mac_addr_to_connect)
+        1. `node meme_sample.js`
+- Electronアプリ
+    - Files
+        - package.json.mac: mac用(package.json にrenameして使用)
+        - package.json.win10: win10用(package.json にrenameして使用)
+        - src/memelib.min.js: SDK本体
+        - src/main.js: メインプロセス
+        - src/index.html: レンダラープロセス
+    - 手順
+        1. git clone
+        1. npm install **Prerequisites**
+        1. main.js内のアプリ認証(app_id/app_secret)情報を記載
+        1. Win10の場合はElectronのリビルド[Building for electron](https://github.com/jasongin/noble-uwp)
+        1. `npx electron src`
 
 ## 動作の流れ
 
@@ -74,6 +83,7 @@ if(process.platform === 'win32') {
 - startDataReport/stopDataReportによるデータの受信開始/終了
 - disconnectによるMEMEとの切断
 
+scanAndConnectで後半を自動処理することも可能です
 
 ## メソッド詳細
 ### setAppClientID
