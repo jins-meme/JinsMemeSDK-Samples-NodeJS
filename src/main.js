@@ -1,6 +1,6 @@
 // Copyright 2018, JINS Corp, all rights reserved
 // アプリケーション作成用のモジュールを読み込み、インスタンスを作成
-const memeDevice = require('./memelib.js'); 
+const memeDevice = require('./memelib.min.js'); 
 let memeDevice1 = new memeDevice();
 let memeDevice2 = new memeDevice();
 //アプリケーションを認証する
