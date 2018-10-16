@@ -14,10 +14,6 @@ nobleを利用したNode.js用JINS MEME SDKです。WindowsとMacで(おそら�
 
 [JINS MEME 利用規約](https://jins-meme.com/ja/terms)に準じます。
 
-## Change Log - 更新履歴
-
-ver. 0.9.6 Initial beta release.
-
 ## Prerequisites 必要な外部パッケージ
 
 事前に以下のパッケージを組み込んでください。
