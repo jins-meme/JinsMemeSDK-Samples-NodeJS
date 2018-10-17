@@ -3,10 +3,10 @@
 	<head>
 		<title>JINS MEME Electron Integration</title>
 		<meta charset="utf-8">
-		<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: ;" />
 		<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
 		<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
-		<script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>	
+		<script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
+		
 	</head>
 	<body>
 		<div id ="status_log"></div>
@@ -16,7 +16,8 @@
 			<ons-button onclick="memeCommand(1, 99)">Disconnect</ons-button>
 			<ons-button id="startdatareport" onclick="memeCommand(1,4)">Start Data</ons-button>
 			<ons-button id="stopdatareport" onclick="memeCommand(1,5)">Stop Data</ons-button>
-			<ons-button id="status" onclick="memeCommand(1,98)">Status</ons-button>
+			<ons-button id="status" onclick="memeCommand(1,10)">HW ver</ons-button>
+			<ons-button id="status" onclick="memeCommand(1,11)">FW ver</ons-button>
 		</div>
 		<div id="content">
 			<h2>Device2</h2>
@@ -25,6 +26,7 @@
 			<ons-button id="startdatareport" onclick="memeCommand(2,4)">Start Data</ons-button>
 			<ons-button id="stopdatareport" onclick="memeCommand(2,5)">Stop Data</ons-button>
 			<ons-button id="status" onclick="scanAndConnect(2)">Scan and Connect</ons-button>
+			<ons-button id="status" onclick="memeCommand(2,10)">HW ver</ons-button>
 		</div>
 		
 
@@ -79,12 +81,12 @@
 		}
 
 		//Scan and connect specific device
-		const scanAndConnect = (arg) =>{
+		const scanAndConnect = (arg) => {
 			ipcRenderer.send('scan-and-connect', arg)
 		}
 
 		//Send commands
-		const memeCommand = (dev,comm) =>{
+		const memeCommand = (dev,comm) => {
 			ipcRenderer.send('meme-command', {device: dev, command: comm})
 		}
 

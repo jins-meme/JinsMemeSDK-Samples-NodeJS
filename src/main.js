@@ -4,7 +4,7 @@ const memeDevice = require('./memelib.min.js');
 let memeDevice1 = new memeDevice();
 let memeDevice2 = new memeDevice();
 //アプリケーションを認証する
-memeDevice1.setAppClientID("set_app_id_here", "set_app_secret_here",
+memeDevice1.setAppClientID("app_id", "app_secret",
   function(){
     console.log("App authorization succeeded.");
   },
@@ -102,10 +102,10 @@ ipcMain.on('start-stop-scan', (event, arg) => {
 //スキャン＆接続（自動再接続用）
 ipcMain.on('scan-and-connect', (event, arg) => {
   if(arg == 1){
-    memeDevice1.scanAndConnect('mac_addr_to_connect',realtimeModeCB_dev1);
+    memeDevice1.scanAndConnect('28a183055fac',realtimeModeCB_dev1);
   }
   if(arg == 2){
-    memeDevice2.scanAndConnect('mac_addr_to_connect',realtimeModeCB_dev2);
+    memeDevice2.scanAndConnect('28a183055fac',realtimeModeCB_dev2);
   }
 })
 
@@ -167,7 +167,21 @@ ipcMain.on('meme-command', (event, arg) => {
     case 5:
       memeDevice_.stopDataReport();
       break;
-    }
+    case 8:
+      memeDevice_.getMemeMode();
+      break;
+    case 9:
+      memeDevice_.getMemeDevInfo();
+      break;
+    case 10:
+      console.log(memeDevice_.getHWVersion());
+      break;
+    case 11:
+      console.log(memeDevice_.getFWVersion());
+      break;
+    case 98:
+      memeDevice_.status();
+      break;  }
 })
 
 //リアルタイムモードを処理するコールバック、デバイスごとに分ける必要あり
