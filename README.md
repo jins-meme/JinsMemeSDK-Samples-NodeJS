@@ -163,6 +163,24 @@ data = {
 
 `memeDevice.disconnect();`
 
+### getHWVersion
+
+ハードウェアバージョンを取得します。
+
+```
+obj = memeDevice.getHWVersion();
+//obj -> { model_main: 1, model_sub: 1, version: 1 }
+```
+
+### getFWVersion
+
+ファームウェアバージョンを取得します。
+
+```
+obj = memeDevice.getFWVersion();
+//obj -> { str: '1.1.1', major: 1, minor: 1, revision: 1 }
+```
+
 ## イベントリスナ
 ### device-discovered
 
