@@ -168,7 +168,7 @@ data = {
 ハードウェアバージョンを取得します。
 
 ```
-obj = memeDevice.getHWVersion();
+let obj = memeDevice.getHWVersion();
 //obj -> { model_main: 1, model_sub: 1, version: 1 }
 ```
 
@@ -177,7 +177,7 @@ obj = memeDevice.getHWVersion();
 ファームウェアバージョンを取得します。
 
 ```
-obj = memeDevice.getFWVersion();
+let obj = memeDevice.getFWVersion();
 //obj -> { str: '1.1.1', major: 1, minor: 1, revision: 1 }
 ```
 
