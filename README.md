@@ -181,6 +181,15 @@ let obj = memeDevice.getFWVersion();
 //obj -> { str: '1.1.1', major: 1, minor: 1, revision: 1 }
 ```
 
+### getSDKVersion
+
+SDK（本ライブラリ）のバージョンを取得します。
+
+```
+let obj = memeDevice.getSDKVersion();
+//obj -> { str: '1.0.3', major: 1, minor: 0, revision: 3 }
+```
+
 ## イベントリスナ
 ### device-discovered
 
