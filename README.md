@@ -109,7 +109,7 @@ scanAndConnectで後半を自動処理することも可能です
 接続するMEMEのMACアドレスを指定しRTモードデータに対するコールバック関数をセットし接続します。
 
 `memeDevice.connect(mac_address_without_coron, callback[, mode]);`
-- mac_address_without_coron: コロンを含まないMAC Address文字列をセットします
+- mac_address_without_coron: **コロンを含まない小文字** のMAC Address文字列をセットします
 - callback: リアルタイムモード受信時のコールバック関数をセットします
 - mode: 接続のオプション設定を行います
     - mode = 0: do nothing on error（default）
@@ -132,7 +132,7 @@ data = {
       powerLeft: /*電池残量5段階*/,
       eyeMoveUp: /*視線移動上*/,
       eyeMoveDown: /*視線移動下*/,
-      eyeMoveLeft: /*視線移動ひだり*/,
+      eyeMoveLeft: /*視線移動左*/,
       eyeMoveRight: /*視線移動右*/
     };
 ```
@@ -142,7 +142,7 @@ data = {
 接続するMEMEが決まっている場合にMACアドレスを指定してscanを開始し、該当デバイスが見つかった場合connectを同時に行います。
 
 `memeDevice.scanAndConnect(mac_address_without_coron,  callback);`
-- mac_address_without_coron: コロンを含まないMAC Address文字列をセットします
+- mac_address_without_coron: **コロンを含まない小文字** のMAC Address文字列をセットします
 - callback: リアルタイムモード受信時のコールバック関数をセットします
 
 ### startDataReport
