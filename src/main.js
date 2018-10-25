@@ -1,4 +1,4 @@
-// Copyright 2018, JINS Corp, all rights reserved
+// Copyright 2018, JINS Inc., all rights reserved
 // アプリケーション作成用のモジュールを読み込み、インスタンスを作成
 const memeDevice = require('./memelib.min.js'); 
 let memeDevice1 = new memeDevice();
@@ -48,7 +48,7 @@ const createWindow = () => {
   }));
  
   // デベロッパーツールの起動
-  //mainWindow.webContents.openDevTools();
+  mainWindow.webContents.openDevTools();
 
   // メインウィンドウが閉じられたときの処理
   mainWindow.on('closed', () => {
@@ -99,13 +99,13 @@ ipcMain.on('start-stop-scan', (event, arg) => {
   device_to_connect = arg;    
 })
 
-//スキャン＆接続（自動再接続用）
+//スキャン＆接続（MACアドレス指定接続用）
 ipcMain.on('scan-and-connect', (event, arg) => {
   if(arg == 1){
-    memeDevice1.scanAndConnect('28a183055fac',realtimeModeCB_dev1);
+    memeDevice1.scanAndConnect('d6bc126d8b87',realtimeModeCB_dev1);
   }
   if(arg == 2){
-    memeDevice2.scanAndConnect('28a183055fac',realtimeModeCB_dev2);
+    memeDevice2.scanAndConnect('d6bc126d8b87',realtimeModeCB_dev2);
   }
 })
 
@@ -140,6 +140,8 @@ memeDevice1.on('device-status', (arg) => {
 });
 memeDevice2.on('device-status', (arg) => {
   if(arg.status == 1){
+    //自動再接続をオンにする
+    memeDevice2.setAutoReconnect(true);
     //自動的にリアルタイムモードデータを取得する
     memeDevice2.startDataReport(); 
   }
@@ -166,6 +168,12 @@ ipcMain.on('meme-command', (event, arg) => {
       break;
     case 5:
       memeDevice_.stopDataReport();
+      break;
+    case 6:
+      memeDevice_.setAutoReconnect(true);
+      break;
+    case 7:
+      memeDevice_.setAutoReconnect(false);
       break;
     case 8:
       memeDevice_.getMemeMode();
