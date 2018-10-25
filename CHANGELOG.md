@@ -1,3 +1,7 @@
+## ver.0.9.10 (2018-10-25)
+
+Add autoReconnect. @jins-tkomoda
+
 ## ver.0.9.9 (2018-10-19)
 
 Add getSDKVersion, adjust post connected sequences. @jins-tkomoda
