@@ -163,6 +163,20 @@ data = {
 
 `memeDevice.disconnect();`
 
+### autoReconnect
+
+電波が弱くなったり端末から遠ざかることで切断した場合、自動的に前回接続していた端末に`scanAndConnect()`をTryします。
+
+- `disconnect()`を呼ぶとfalseにセットされ自動再接続がされなくなりますので、必要な場合再度セットしてください。
+- 指定しなかった場合は自動再接続はされません。
+
+`memeDevice.autoReconnect(bool = false);`
+
+- bool: オプション
+    - true: 自動再接続する
+    - false: 自動再接続しない
+
+
 ### getHWVersion
 
 ハードウェアバージョンを取得します。
