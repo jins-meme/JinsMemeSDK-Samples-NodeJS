@@ -1,51 +1,47 @@
-# JinsMemeSDK-NodeJS
+# JinsMemeSDK-Samples-NodeJS
 
-JINS MEME SDK for Node.js using noble BLE library. Works on Windows and Mac! (May be on Linux too).
+A Node.js application samples for JinsMemeSDK-NodeJS 
 
-nobleを利用したNode.js用JINS MEME SDKです。WindowsとMacで(おそらくLinuxでも)動作します!
+JINS MEME SDKを利用したNode.jsサンプルです。
 
 ## 概要
 
-- Node.jsにおいて、JINS MEMEと通信を行うSDKです。
-- Electronのmainプロセスにも配置できるよう、インタラクションが必要な部分はイベントハンドラを使用しています。
-- 複数台のJINS MEMEとの通信に対応しています(6台の同時通信まで確認済み@Windows10)。
+以下の3サンプルを収録しています。
+
+- simple-sample: Nodeスクリプト、指定したMACアドレスにscan&connectをかけにいき、接続後データ取得を開始します。
+- electron-sample: electronで2台のJINS MEMEに接続するサンプルです。
+- jinsmeme-mouse: JINS MEME でマウスを操作するアプリです。
 
 ## License
 
-[JINS MEME 利用規約](https://jins-meme.com/ja/terms)に準じます。
+MIT
 
 ## Prerequisites 必要な外部パッケージ
 
-事前に以下のパッケージを組み込んでください。
+事前に以下のパッケージを組み込んでください。nobleとnoble-uwpはどちらか片方が必要です。
 
-- noble
-    - MacのBLEライブラリ
-    - Windowsでドライバをインストールするとこのライブラリも使用できますが、現在その方式はサポートしていません。
-    - MIT License
-    - ^1.9.1
-- noble-uwp
-    - Windows10(Fall creators update以降)のBLEライブラリ
-    - MIT License
-    - ^0.6.2
+- jinsmemesdk-node-noble
+    - Mac/Linuxに対応するnobleを利用したバージョン、Windowsで対応USB-BTを使用すると使用できますが、現在その方式はサポートしていません。
+    - [JINS MEME 利用規約](https://jins-meme.com/ja/terms)
+    - ^0.9.11
     
-nobleかnoble-uwpのどちらか片方が必要です。現状は以下のコードで読み込むパッケージを分岐しています。
+- jinsmemesdk-node-noble-uwp
+    - Windows10(Creators Update以降, build 10.0.15063 or later)に対応するnoble-uwpを利用したバージョン
+    - [JINS MEME 利用規約](https://jins-meme.com/ja/terms)
+    - ^0.9.11
+    
+- (only for electron-sample and jinsmeme-mouse) electron
+    - MIT
+    - ^2.0.11
 
- ```
-if(process.platform === 'win32') {
-    noble = require('noble-uwp');
-} else {
-    noble = require('noble');
-}
-```
-
-- node-rest-client
-    - SDK認証の通信に必要なライブラリ
-    - MIT License
-    - ^3.1.0
+- (only for jinsmeme-mouse) robotjs
+    - mouseやkeyboardを操作するライブラリ
+    - MIT
+    - ^0.5.11
 
 ## Sample
 
-- Nodeスクリプト
+- simple-sample
     - Files
         - meme_sample.js
     - 手順
@@ -66,190 +62,3 @@ if(process.platform === 'win32') {
         1. main.js内のアプリ認証(app_id/app_secret)情報を記載
         1. Win10の場合はElectronのリビルド[Building for electron](https://github.com/jasongin/noble-uwp)
         1. `npx electron src`
-
-## 動作の流れ
-
-以下が最小限の実行シーケンスとなります
-
-- requireによるmemelibの読み込み
-- setAppClientID によるアプリ認証を実行
-- memeDeviceインスタンスの作成
-- scanによるMEMEの検索
-- connectによるMEMEへの接続
-- startDataReport/stopDataReportによるデータの受信開始/終了
-- disconnectによるMEMEとの切断
-
-scanAndConnectで後半を自動処理することも可能です
-
-## メソッド詳細
-### setAppClientID
-
-[JINS MEME DEVELOPERS](https://developers.jins.com/)で取得した認証情報を利用しアプリ認証を行ないます。 JINS MEME SDK for NodeJS を利用するには、まずはじめにこのAPIを1度実行する必要があります。無効なコードだった場合は以降のプロセスでJINS MEMEと接続ができません。複数MEMEで使用する場合はどれかのインスタンスで1回実行すればOKです。
-
-`setAppClientID(appClientId, clientSecret, successCallback, errorCallback);`
-- appClientId: JINS MEME DEVELOPERS で取得したclient_id
-- clientSecret: JINS MEME DEVELOPERS で取得したclient_secret
-- successCallback: 認証成功時の処理
-- errorCallback: 認証失敗時の処理
-
-### memeDevice
-
-インスタンスの作成を行います。複数インスタンスで利用する場合はmain内の各種処理で振り分けが必要になります。
-
-`let memeDevice = new memeDevice();`
-
-### scan
-
-デバイスのBLE scanを開始し、MEMEの検索を開始します。scanは20秒で自動で止まります。見つかった端末はdevice-discoveredのイベントリスナ経由でdevice情報を通知します。
-
-`memeDevice.scan();`
-
-### connect
-
-接続するMEMEのMACアドレスを指定しRTモードデータに対するコールバック関数をセットし接続します。
-
-`memeDevice.connect(mac_address_without_coron, callback[, mode]);`
-- mac_address_without_coron: **コロンを含まない小文字** のMAC Address文字列をセットします
-- callback: リアルタイムモード受信時のコールバック関数をセットします
-- mode: 接続のオプション設定を行います
-    - mode = 0: do nothing on error（default）
-    - mode = 1: retry connect once
-
-callbackではdataオブジェクトとして以下のデータが渡されます。
-```
-data = {
-      blinkSpeed: /*瞬目速度*/,
-      blinkStrength: /*瞬目強度*/,
-      roll: /*角度R*/,
-      pitch: /*角度P*/,
-      yaw: /*角度Y*/,
-      accX: /*加速度X*/,
-      accY: /*加速度Y*/,
-      accZ: /*加速度Z*/,
-      fitError: /*装着フラグ(使用非推奨)*/,
-      walking: /*歩行フラグ*/,
-      noiseStatus: /*ノイズ状態*/,
-      powerLeft: /*電池残量5段階*/,
-      eyeMoveUp: /*視線移動上*/,
-      eyeMoveDown: /*視線移動下*/,
-      eyeMoveLeft: /*視線移動左*/,
-      eyeMoveRight: /*視線移動右*/
-    };
-```
-
-### scanAndConnect
-
-接続するMEMEが決まっている場合にMACアドレスを指定してscanを開始し、該当デバイスが見つかった場合connectを同時に行います。
-
-`memeDevice.scanAndConnect(mac_address_without_coron,  callback);`
-- mac_address_without_coron: **コロンを含まない小文字** のMAC Address文字列をセットします
-- callback: リアルタイムモード受信時のコールバック関数をセットします
-
-### startDataReport
-
-接続状態にある時、データ送信を開始します。
-
-`memeDevice.startDataReport();`
-
-### stopDataReport
-
-接続状態にある時、データ送信を終了します。
-
-`memeDevice.stopDataReport();`
-
-### disconnect
-
-接続中のMEMEと切断します。
-
-`memeDevice.disconnect();`
-
-### setAutoReconnect
-
-電波が弱くなったり端末から遠ざかることで切断した場合、自動的に前回接続していた端末に`scanAndConnect()`をTryします。
-
-- `disconnect()`を呼ぶとfalseにセットされ自動再接続がされなくなりますので、必要な場合再度セットしてください。
-- 指定しなかった場合は自動再接続はされません。
-
-`memeDevice.setAutoReconnect(bool = false);`
-
-- bool: オプション
-    - true: 自動再接続する
-    - false: 自動再接続しない
-
-
-### getHWVersion
-
-ハードウェアバージョンを取得します。
-
-```
-let obj = memeDevice.getHWVersion();
-//obj -> { model_main: 1, model_sub: 1, version: 1 }
-```
-
-### getFWVersion
-
-ファームウェアバージョンを取得します。
-
-```
-let obj = memeDevice.getFWVersion();
-//obj -> { str: '1.1.1', major: 1, minor: 1, revision: 1 }
-```
-
-### getSDKVersion
-
-SDK（本ライブラリ）のバージョンを取得します。
-
-```
-let obj = memeDevice.getSDKVersion();
-//obj -> { str: '1.0.3', major: 1, minor: 0, revision: 3 }
-```
-
-## イベントリスナ
-### device-discovered
-
-scan中にデバイスが見つかった時に通知するdevice情報のイベントリスナ、連番id、macアドレスなどを通知します。
-electronの場合はこれの情報をrendererのダイアログに送ることでmain側にロジックを配置することが可能になります。
-
-```
-memeDevice.on('device-discovered', (device) => {
-  //デバイス情報を処理する
-})
-```
-
-deviceは以下のオブジェクト構造をとります。
-```
-device = {
-      idx: /**/,
-      peripheral: /*peripheral情報*/,
-      mac_addr: /*mac_addr*/,
-      name: /*localName*/,
-      rssi: /*rssi*/
-    };
-```
-
-### device-status
-
-接続・切断の状態が変わった時に通知します。
-
-```
-memeDevice1.on('device-status', (status) => {
-  //
-});
-```
-
-- status: 0: 切断
-- status: 1: 接続
-
-
-## 実装のヒント
-### 接続後にすぐデータ送信を開始する
-
-接続後に自動的にデータ送信を開始したい場合は、device-status == 1を受信時にstartDataReportを実行します。
-
-```
-memeDevice.on('device-status', (status) => {
-  if(status == 1){
-    memeDevice.startDataReport();
-  }
-});
-```
