@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<title>JINS MEME Mouse</title>
+		<meta charset="utf-8">
+		<meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline'; img-src 'self' data: ;" />
+			<link rel="stylesheet" href="./onsenui.min.css">
+			<link rel="stylesheet" href="./onsen-css-components.min.css">
+			<script src="./onsenui.min.js"></script>
+			<style>
+				body {
+					color:#777;
+					/*font-family:Questrial;*/
+					font-family:Helvetica;
+					font-size:100%;
+					line-height:1.5em;
+					margin:10px;
+				}
+
+				p{
+					margin:10px;
+				}
+
+				input[type=number]{
+				    width: 70px;
+					color:#777;
+				}
+
+			</style>
+	</head>
+	<body>
+		<p>
+			<ons-button class="mainbutton" id="startscan" onclick="startStopScan(1);uiControl(2);">Start</ons-button>&nbsp;
+			<ons-button modifier="light" id="disconnect" onclick="memeCommand(1,99)">Quit</ons-button>&nbsp;
+			<ons-button modifier="light" id="stopdatareport" onclick="memeCommand(1,5);uiControl(4);">Pause</ons-button>&nbsp;
+			<ons-button modifier="light" id="startdatareport" onclick="memeCommand(1,4);uiControl(3);">Resume</ons-button>&nbsp;
+		</p>
+		<div id ="status_log"></div>
+		<hr />
+		<p>
+			<label class="left"><ons-checkbox input-id="togglecursol" checked></ons-checkbox></label>
+			<label for="togglecursol" class="center">Mouse Cursol</label>
+		</p>
+		<p>
+			<label class="left"><ons-checkbox input-id="togglescroll" checked></ons-checkbox></label>
+			<label for="togglescroll" class="center">Mouse Scroll</label>
+		</p>
+		<p>
+			<label class="left"><ons-checkbox input-id="autoconnect"></ons-checkbox></label>
+			<label for="autoconnect" class="center">Auto-reconnect to the last connected</label>
+    </p>
+		<p>
+			<label class="left"><ons-input type="number" id="click_th" value=80></ons-input></label>
+			<label for="click_th" class="center">Click Th:</label>
+		</p>
+		<p>
+			<label class="left"><ons-input type="number" id="rclick_th" value=200></ons-input></label>
+			<label for="rclick_th" class="center">RightClick Th:</label>
+		</p>
+		<p>
+			<label class="left"><ons-input type="number" id="cursol_speed" value=75></ons-input></label>
+			<label for="cursol_speed" class="center">Speed:</label>
+		</p>
+		<p>
+			<ons-button modifier="light" id="apply_settings" onclick="sendSettings()">Apply settings</ons-button>
+		</p>
+
+		<!-- デバイス選択ダイアログ -->
+		<ons-dialog id="selectDeviceDialog" cancelable>
+			<ons-list id="deviceList">    
+			</ons-list>
+		</ons-dialog>
+		
+		<!-- モーダルウィンドウ -->
+		<ons-modal id="modal">
+			<p>接続中...</p>
+			<ons-icon icon="spinner" size="28px" spin></ons-icon>
+		</ons-modal> 
+			
+	</body>
+	<script>
+		
+		//IPCの宣言
+		const {ipcRenderer} = require('electron')
+		//let deviceDialogShow = 0;
+		let deviceList = document.getElementById('deviceList');
+
+		//statusの表示
+		ipcRenderer.on('status-msg', (event, msg) => {
+			document.getElementById('status_log').innerHTML = msg;
+		})
+
+		//設定変更のメインへの反映
+		const sendSettings = () => {
+			data = {
+				click_th: document.getElementById('click_th').value,
+				rclick_th: document.getElementById('rclick_th').value,
+				cursol_speed: document.getElementById('cursol_speed').value,
+				cursol_on: document.getElementById('togglecursol').checked,
+				scroll_on: document.getElementById('togglescroll').checked,
+				auto_connect: document.getElementById('autoconnect').checked,
+			}
+			ipcRenderer.send('apply-settings-from-renderer', JSON.stringify(data));
+		}
+
+		//起動時設定の反映
+		ipcRenderer.on('apply-settings-from-main', (event, msg) => {
+			settings = JSON.parse(msg);
+			//console.log(`Renderer: ${msg}`);
+			document.getElementById('click_th').value = settings.click_th;
+			document.getElementById('rclick_th').value = settings.rclick_th;
+			document.getElementById('cursol_speed').value = settings.cursol_speed;
+			document.getElementById('togglecursol').checked = settings.cursol_on;
+			document.getElementById('togglescroll').checked = settings.scroll_on;
+			document.getElementById('autoconnect').checked = settings.auto_connect;
+		})
+
+		//Scan開始
+		const startStopScan = arg => {
+			//if(deviceDialogShow == 0){
+				deviceList.innerHTML = '<ons-list-header>デバイスを選択</ons-list-header>';
+				document.getElementById('selectDeviceDialog').show();
+				deviceDialogShow = 1;
+			//}
+			ipcRenderer.send('start-stop-scan', arg)
+		}
+
+		//Scan結果のRender
+		ipcRenderer.on('reply-to-mainwindow', (event, device) => {
+			deviceList.innerHTML += `<ons-list-item tappable onclick="connectDevice('${device.mac_addr}')">${device.mac_addr} / ${device.rssi}</ons-list-item>`;
+			//console.log(device) // prints "pong"
+		})
+
+		//Begin connect
+		const connectDevice = device => {
+			// ダイアログを閉じる
+			document.getElementById('selectDeviceDialog').hide();
+      ipcRenderer.send('connect-device', device)
+      //document.getElementById('connected_device').innerHTML = device.mac_addr;
+		}
+
+		//コマンドの送信
+		const memeCommand = (dev,comm) => {
+			ipcRenderer.send('meme-command', {device: dev, command: comm})
+		}
+
+		//ボタンのmodifierをステートによって変更する
+		const uiControl = (arg) => {
+			switch( arg ) {
+				//切断状態
+				case 1:
+				document.getElementById('startscan').setAttribute("modifier", "default")
+				document.getElementById('disconnect').setAttribute("modifier", "light")
+				document.getElementById('startdatareport').setAttribute("modifier", "light")
+				document.getElementById('stopdatareport').setAttribute("modifier", "light")
+				break;
+				//接続試行中		
+				case 2:
+				document.getElementById('startscan').setAttribute("modifier", "outline")
+				document.getElementById('disconnect').setAttribute("modifier", "light")
+				document.getElementById('startdatareport').setAttribute("modifier", "light")
+				document.getElementById('stopdatareport').setAttribute("modifier", "light")
+				break;
+				//接続中
+				case 3:
+				document.getElementById('startscan').setAttribute("modifier", "light")
+				document.getElementById('disconnect').setAttribute("modifier", "outline")
+				document.getElementById('startdatareport').setAttribute("modifier", "light")
+				document.getElementById('stopdatareport').setAttribute("modifier", "outline")
+				break;
+				//Resume タップ
+				case 4:
+				document.getElementById('startscan').setAttribute("modifier", "light")
+				document.getElementById('disconnect').setAttribute("modifier", "outline")
+				document.getElementById('startdatareport').setAttribute("modifier", "outline")
+				document.getElementById('stopdatareport').setAttribute("modifier", "light")
+				break;
+			}
+    	}
+
+		//device-statusの受信と画面遷移
+		ipcRenderer.on('device-status', (event, arg) => {
+			//切断状態
+			if(arg.status == 0){
+				uiControl(1);
+			}
+			//接続＆dataReport
+			if(arg.status == 1){
+				uiControl(3);
+			}
+			//Pause中
+			if(arg.status == 2){
+				uiControl(4);
+			}
+		})
+</script>
+</html>

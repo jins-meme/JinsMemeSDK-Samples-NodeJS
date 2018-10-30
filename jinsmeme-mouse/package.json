@@ -1,0 +1,30 @@
+{
+  "name": "jinsmeme-mouse",
+  "version": "0.5.0",
+  "description": "jinsmeme mouse",
+  "dependencies": {
+    "electron-store": "^2.0.0",
+    "jinsmemesdk-node-noble-uwp": "^0.9.13",
+    "robotjs": "^0.5.1"
+  },
+  "main": "src/main.js",
+  "scripts": {
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
+  },
+  "build": {
+    "appId": "com.jins-meme.meme-mouse",
+    "win": {
+      "target": "nsis"
+    },
+    "mac": {
+      "target": "dmg"
+    }
+  },
+  "author": "JINS Inc.",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^3.0.6",
+    "electron-builder": "^20.29.0"
+  }
+}

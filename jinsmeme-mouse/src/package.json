@@ -1,0 +1,7 @@
+{
+  "main": "main.js",
+  "dependencies": {
+    "noble-uwp": "^0.6.2",
+    "robotjs": "^0.5.1"
+  }
+}

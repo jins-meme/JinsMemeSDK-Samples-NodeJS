@@ -1,0 +1,13 @@
+{
+  "name": "jinsmeme-simple-sample",
+  "version": "0.9.11",
+  "description": "jinsmeme sdk simplest sample",
+  "main": "meme_sample.js",
+  "scripts": {},
+  "author": "JINS Inc.",
+  "license": "MIT",
+  "devDependencies": {},
+  "dependencies": {
+    "jinsmemesdk-node-noble-uwp": "^0.9.13"
+  }
+}

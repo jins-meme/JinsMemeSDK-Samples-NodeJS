@@ -1,0 +1,10 @@
+node_modules
+jinsmemesdk-node
+old
+dist
+*.txt
+onsen-css-components.min.css
+onsenui.min.css
+onsenui.min.js
+package-lock.json
+desktop.ini
