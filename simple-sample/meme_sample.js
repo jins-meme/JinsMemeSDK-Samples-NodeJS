@@ -13,7 +13,7 @@ const createCounter = () => {
 const counter1 = createCounter();
 
 //アプリケーションを認証する
-memeDevice1.setAppClientID("416064993444878", "evtl3ikh3nzml5gcx9odo9vt7vjulpik",
+memeDevice1.setAppClientID("app_id", "app_secret",
   function(){
     console.log("App authorization succeeded.");
   },
@@ -32,7 +32,7 @@ const realtimeModeCB_dev1 = data => {
 }
 
 //スキャンして該当mac_addressが見つかったら接続
-memeDevice1.scanAndConnect('28a18305a32c');
+memeDevice1.scanAndConnect('mac_addr_to_connect');
 
 //characteristic取得後後処理
 memeDevice1.on('device-status', (arg) => {

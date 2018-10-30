@@ -2,7 +2,7 @@
 
 const memeDevice = require('jinsmemesdk-node-noble-uwp'); 
 let memeDevice1 = new memeDevice();
-memeDevice1.setAppClientID("416064993444878", "evtl3ikh3nzml5gcx9odo9vt7vjulpik",
+memeDevice1.setAppClientID("app_id", "app_secret",
   function(){
     console.log("App authorization succeeded.");
   },
