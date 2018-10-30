@@ -32,13 +32,25 @@ MIT
     
 - electron (for electron-sample and jinsmeme-mouse)
     - License: MIT
-    - ^2.0.11
+    - ^3.0.6
+
+- electron-store
+    - License: MIT
+    - ^2.0.0
 
 - robotjs (only for jinsmeme-mouse)
     - mouseやkeyboardを操作するライブラリ
     - License: MIT
     - ^0.5.11
 
+## Using external script/css 使用している外部スクリプト/css
+
+electronサンプルでは以下のライブラリを使用しています。
+
+- onsen-ui
+    - モバイルアプリケーションライブラリ
+    - License: MIT
+    
 ## Sampleと使用手順
 
 - 共通
