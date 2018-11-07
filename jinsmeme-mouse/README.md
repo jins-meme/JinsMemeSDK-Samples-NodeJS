@@ -62,7 +62,7 @@ electronサンプルでは以下のUIライブラリを使用しています。
     - Mac/Linux：`const memeDevice = require('jinsmemesdk-node-noble');` 
 1. package.json の dependencies も jinsmemesdk-node-noble-uwp, jinsmemesdk-node-noble を必要に応じて修正
 1. npm install '**Listed in prerequisites**'
-1. main.js内のアプリ認証(app_id/app_secret)情報、接続するMEMEのMACアドレス(mac_addr_to_connect, **コロンなし小文字** )を記載
+1. main.js内のアプリ認証(app_id/app_secret)情報を記載
 1. [Electronのリビルド](http://robotjs.io/docs/electron)
     ```
     npm rebuild --runtime=electron --target=3.0.6 --arch=x64 --rebuild --disturl=https://atom.io/download/electron --build_from_source=true --abi=64
