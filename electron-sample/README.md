@@ -46,5 +46,6 @@ electronサンプルでは以下のUIライブラリを使用しています。
     ```
     npm rebuild --runtime=electron --target=3.0.6 --arch=x64 --rebuild --disturl=https://atom.io/download/electron --build_from_source=true
     ```
-    ここでUSB周りのビルドエラーが出るときは [micro:bit を Scratch 2 + Bluetooth で使う](https://qiita.com/memakura/items/dc5cf2ff39d24ceb53ff) を参考にusb/libusb/libusb/strerror.c のソースを修正しリビルド
+    - Windows-Build-Toolsは必ず **--vs2015** をつけてインストール
+    - USB周りのビルドエラーが出るときは [micro:bit を Scratch 2 + Bluetooth で使う](https://qiita.com/memakura/items/dc5cf2ff39d24ceb53ff) を参考にusb/libusb/libusb/strerror.c のソースを修正しリビルド
 1. `npx electron src`
