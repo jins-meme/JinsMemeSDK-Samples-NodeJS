@@ -22,4 +22,5 @@
 
 1. npm install '**Listed in prerequisites**'
 1. meme_sample.js内のアプリ認証(app_id/app_secret)情報、接続するMEMEのMACアドレス(mac_addr_to_connect, **コロンなし小文字** )を記載
+1. binding.nodeが無いとエラーが出た場合はリビルド rebuild if there is no 'binding.node' `npm rebuild --build_from_source=true`
 1. `node meme_sample.js`
