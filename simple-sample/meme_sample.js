@@ -25,10 +25,7 @@ memeDevice1.setAppClientID("app_id", "app_secret",
 //リアルタイムモードを処理するコールバック、デバイスごとに分ける必要あり
 const realtimeModeCB_dev1 = data => {
   let cnt = counter1();
-  //1秒に2回データをコンソールに吐く
-  if(cnt % 10 == 0){
-    console.log(`dev1: ${cnt} : ${data.accX}`);
-  }
+  console.log(`dev1: ${cnt} : ${data.accX}`);
 }
 
 //スキャンして該当mac_addressが見つかったら接続
