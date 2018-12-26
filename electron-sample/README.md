@@ -20,7 +20,7 @@ electronで2台のJINS MEMEに接続するサンプルです。mainプロセス�
 
 - electron
     - License: MIT
-    - ^3.0.6
+    - ^3.0.6 (4.0.0でも動作確認済みです)
 
 - electron-store
     - License: MIT
