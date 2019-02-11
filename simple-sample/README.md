@@ -10,13 +10,13 @@
 
 - jinsmemesdk-node-noble
     - Mac/Linuxに対応するnobleを利用したバージョン、Windowsで対応USB-BTを使用すると使用できますが、現在その方式はテストしていません。
-    - License: [JINS MEME 利用規約](https://jins-meme.com/ja/terms)
-    - ^0.9.13
+    - License: [JINS MEME SDK 利用規約(ja)](https://developers.jins.com/ja/sdks/terms_and_conditions/) [(en)](https://developers.jins.com/en/sdks/terms_and_conditions/)
+    - ^0.9.16
     
 - jinsmemesdk-node-noble-uwp
     - Windows10(Creators Update以降, build 10.0.15063 or later)に対応するnoble-uwpを利用したバージョン
-    - License: [JINS MEME 利用規約](https://jins-meme.com/ja/terms)
-    - ^0.9.13
+    - License: [JINS MEME SDK 利用規約(ja)](https://developers.jins.com/ja/sdks/terms_and_conditions/) [(en)](https://developers.jins.com/en/sdks/terms_and_conditions/)
+    - ^0.9.16
     
 ## Sample使用手順
 
