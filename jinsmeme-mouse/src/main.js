@@ -1,6 +1,6 @@
 // Copyright 2018 Taiki Komoda, JINS Inc, all rights reserved
 
-const memeDevice = require('jinsmemesdk-node-noble-uwp'); 
+const memeDevice = require('jinsmemesdk-node-noble-uwp');
 let memeDevice1 = new memeDevice();
 memeDevice1.setAppClientID("app_id", "app_secret",
   function(){
@@ -34,23 +34,25 @@ let screen_size = {x: 1280, y:720};
 let blink = {ts_m1: 0, peak_w: 100, time:0};
 let settings = {click_th: 80, rclick_th: 200, cursol_speed: 75,
   cursol_on: true, scroll_on: true, auto_connect: true}
-let cursol_toggle = 0; 
+let cursol_toggle = 0;
 
 const createWindow = () => {
   // メインウィンドウを作成します
-  mainWindow = new BrowserWindow({width: 350, height: 450});
- 
-  //Get screen size 
+  mainWindow = new BrowserWindow({
+    width: 350,
+    height: 450,
+    webPreferences: {
+      nodeIntegration: true
+    }
+  });
+
+  //Get screen size
   screen_size.x = electron.screen.width;
   screen_size.y = electron.screen.height;
- 
+
   // レンダラープロセス
-  mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'index.html'),
-    protocol: 'file:',
-    slashes: true
-  }));
- 
+  mainWindow.loadFile('index.html');
+
   // デベロッパーツールの起動
   //mainWindow.webContents.openDevTools();
 
@@ -64,7 +66,7 @@ const createWindow = () => {
     event.preventDefault();
     mainWindow.hide();
   });
-  
+
   //メインウィンドウの読み込み完了後の処理
   mainWindow.webContents.on('did-finish-load', function() {
     //設定ファイルの読み込み
@@ -98,7 +100,7 @@ const createWindow = () => {
       mainWindow.webContents.send('device-status', {status:1});
     }},
     {type: "separator"},
-    {role: "quit"}, 
+    {role: "quit"},
   ]);
   tray.setToolTip('MEME Mouse')
   tray.setContextMenu(contextMenu)
@@ -109,7 +111,7 @@ app.commandLine.appendSwitch('disable-renderer-backgrounding');
 
 //  初期化が完了した時の処理
 app.on('ready', createWindow);
- 
+
 // 全てのウィンドウが閉じたときの処理
 app.on('window-all-closed', () => {
   //切断しないとelectronが終了しない
@@ -218,7 +220,7 @@ const realtimeModeCB_dev1 = data => {
   dcnt++;
   yaw_m1 = data.yaw;
   pitch_m1 = data.pitch;
-  
+
   if(settings.cursol_on && dcnt > 2){
     if(Math.abs(x_moment) > 0.12 || Math.abs(y_moment) > 0.1){
       var vm_loc = robot.getMousePos();
@@ -259,7 +261,7 @@ const realtimeModeCB_dev1 = data => {
     }
     blink.ts_m1 = date_now;
   }
-  
+
   if(date_now - blink.ts_m1 >= 550){
     blink.time = 0;
     cursol_toggle = 0;

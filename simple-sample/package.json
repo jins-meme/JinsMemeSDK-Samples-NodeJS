@@ -8,6 +8,6 @@
   "license": "MIT",
   "devDependencies": {},
   "dependencies": {
-    "jinsmemesdk-node-noble-uwp": "^0.9.13"
+    "jinsmemesdk-node-noble-uwp": "^0.9.16"
   }
 }

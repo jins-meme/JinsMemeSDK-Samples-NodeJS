@@ -1,6 +1,6 @@
-// Copyright 2018, JINS Inc., all rights reserved
+// Copyright 2019, 2018, JINS Inc., all rights reserved
 // アプリケーション作成用のモジュールを読み込み、インスタンスを作成
-const memeDevice = require('jinsmemesdk-node-noble-uwp'); 
+const memeDevice = require('jinsmemesdk-node-noble-uwp');
 let memeDevice1 = new memeDevice();
 
 //データ件数確認用カウンター
@@ -35,6 +35,6 @@ memeDevice1.scanAndConnect('mac_addr_to_connect');
 memeDevice1.on('device-status', (arg) => {
   if(arg.status == 1){
     //自動的にリアルタイムモードデータを取得する
-    memeDevice1.startDataReport(realtimeModeCB_dev1); 
+    memeDevice1.startDataReport(realtimeModeCB_dev1);
   }
 });
