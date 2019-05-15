@@ -28,7 +28,7 @@ releases をご覧ください。
     - Mac/Linuxに対応するnobleを利用したバージョン、Windowsで対応USB-BTを使用すると使用できますが、現在その方式はテストしていません。
     - License: [JINS MEME SDK 利用規約(ja)](https://developers.jins.com/ja/sdks/terms_and_conditions/) [(en)](https://developers.jins.com/en/sdks/terms_and_conditions/)
     - ^0.9.16
-    
+
 - jinsmemesdk-node-noble-uwp
     - Windows10(Creators Update以降, build 10.0.15063 or later)に対応するnoble-uwpを利用したバージョン
     - License: [JINS MEME SDK 利用規約(ja)](https://developers.jins.com/ja/sdks/terms_and_conditions/) [(en)](https://developers.jins.com/en/sdks/terms_and_conditions/)
@@ -36,11 +36,11 @@ releases をご覧ください。
 
 - electron
     - License: MIT
-    - ^3.0.6 (4.0.0でも動作確認済みです)
+    - ^4.2.0 (3.xでも動作確認済みです)
 
 - electron-store
     - License: MIT
-    - ^2.0.0    
+    - ^2.0.0
 
 - robotjs
     - mouseやkeyboardを操作するライブラリ
@@ -58,14 +58,14 @@ electronサンプルでは以下のUIライブラリを使用しています。
 ## ビルド手順
 
 1. git clone したあと、jinsmeme-mouse/src/main.js の以下のSDK読み込み個所を必要に応じて修正してください
-    - Windows 10：`const memeDevice = require('jinsmemesdk-node-noble-uwp');` 
-    - Mac/Linux：`const memeDevice = require('jinsmemesdk-node-noble');` 
+    - Windows 10：`const memeDevice = require('jinsmemesdk-node-noble-uwp');`
+    - Mac/Linux：`const memeDevice = require('jinsmemesdk-node-noble');`
 1. package.json の dependencies も jinsmemesdk-node-noble-uwp, jinsmemesdk-node-noble を必要に応じて修正
 1. npm install '**Listed in prerequisites**'
 1. main.js内のアプリ認証(app_id/app_secret)情報を記載
 1. [Electronのリビルド](http://robotjs.io/docs/electron)
     ```
-    npm rebuild --runtime=electron --target=3.0.6 --arch=x64 --rebuild --disturl=https://atom.io/download/electron --build_from_source=true --abi=64
+    npm rebuild --runtime=electron --target=4.2.0 --arch=x64 --rebuild --disturl=https://atom.io/download/electron --build_from_source=true --abi=64
     ```
     - Windows-Build-Toolsは必ず **--vs2015** をつけてインストール
     - USB周りのビルドエラーが出るときは [micro:bit を Scratch 2 + Bluetooth で使う](https://qiita.com/memakura/items/dc5cf2ff39d24ceb53ff) を参考にusb/libusb/libusb/strerror.c のソースを修正しリビルド

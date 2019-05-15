@@ -1,6 +1,6 @@
 # JinsMemeSDK-Samples-NodeJS
 
-A Node.js application samples for JinsMemeSDK-NodeJS 
+A Node.js application samples for JinsMemeSDK-NodeJS
 
 JinsMemeSDK-NodeJSを利用したNode.jsサンプルです。
 
@@ -18,4 +18,7 @@ MIT
 
 ## 詳細
 
-それぞれのフォルダのREADME.mdを参照してください。
+- それぞれのフォルダのREADME.mdを参照してください。
+- electronを使用するelectron-sample, jinsmeme-mouseに関してはビルドがnode/electronのバージョンに大きく影響を受けますので、nvmなどを利用し複数のNodejs環境を整えた上でのビルドをオススメいたします。
+- 以下の記事を参考にしてください。
+https://qiita.com/komde/items/d31880c6c11f760425b9

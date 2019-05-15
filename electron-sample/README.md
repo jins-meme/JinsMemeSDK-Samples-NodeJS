@@ -12,7 +12,7 @@ electronで2台のJINS MEMEに接続するサンプルです。mainプロセス�
     - Mac/Linuxに対応するnobleを利用したバージョン、Windowsで対応USB-BTを使用すると使用できますが、現在その方式はテストしていません。
     - License: [JINS MEME SDK 利用規約(ja)](https://developers.jins.com/ja/sdks/terms_and_conditions/) [(en)](https://developers.jins.com/en/sdks/terms_and_conditions/)
     - ^0.9.16
-    
+
 - jinsmemesdk-node-noble-uwp
     - Windows10(Creators Update以降, build 10.0.15063 or later)に対応するnoble-uwpを利用したバージョン
     - License: [JINS MEME SDK 利用規約(ja)](https://developers.jins.com/ja/sdks/terms_and_conditions/) [(en)](https://developers.jins.com/en/sdks/terms_and_conditions/)
@@ -20,11 +20,11 @@ electronで2台のJINS MEMEに接続するサンプルです。mainプロセス�
 
 - electron
     - License: MIT
-    - ^3.0.6 (4.0.0でも動作確認済みです)
+    - ^4.2.0 (3.xでも動作確認済みです)
 
 - electron-store
     - License: MIT
-    - ^2.0.0    
+    - ^2.0.0
 
 ## Using external script/css 使用している外部スクリプト/css
 
@@ -37,14 +37,14 @@ electronサンプルでは以下のUIライブラリを使用しています。
 ## Sample使用手順
 
 1. git clone したあと、electron-sample/src/main.js の以下のSDK読み込み個所を必要に応じて修正してください
-    - Windows 10：`const memeDevice = require('jinsmemesdk-node-noble-uwp');` 
-    - Mac/Linux：`const memeDevice = require('jinsmemesdk-node-noble');` 
+    - Windows 10：`const memeDevice = require('jinsmemesdk-node-noble-uwp');`
+    - Mac/Linux：`const memeDevice = require('jinsmemesdk-node-noble');`
 1. package.json の dependencies も jinsmemesdk-node-noble-uwp, jinsmemesdk-node-noble を必要に応じて修正
 1. npm install '**Listed in prerequisites**'
 1. main.js内のアプリ認証(app_id/app_secret)情報、接続するMEMEのMACアドレス(mac_addr_to_connect, **コロンなし小文字** )を記載
 1. Electronのリビルド [Building for electron](https://github.com/jasongin/noble-uwp)
     ```
-    npm rebuild --runtime=electron --target=3.0.6 --arch=x64 --rebuild --disturl=https://atom.io/download/electron --build_from_source=true
+    npm rebuild --runtime=electron --target=4.2.0 --arch=x64 --rebuild --disturl=https://atom.io/download/electron --build_from_source=true
     ```
     - Windows-Build-Toolsは必ず **--vs2015** をつけてインストール
     - USB周りのビルドエラーが出るときは [micro:bit を Scratch 2 + Bluetooth で使う](https://qiita.com/memakura/items/dc5cf2ff39d24ceb53ff) を参考にusb/libusb/libusb/strerror.c のソースを修正しリビルド

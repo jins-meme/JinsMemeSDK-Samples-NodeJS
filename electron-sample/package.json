@@ -1,6 +1,6 @@
 {
   "name": "jinsmeme-electron-sample",
-  "version": "0.9.11",
+  "version": "0.10.0",
   "description": "jinsmeme integration sample for electron",
   "main": "main.js",
   "scripts": {
@@ -9,9 +9,9 @@
   "author": "JINS Inc.",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^3.0.6"
+    "electron": "^4.2.0"
   },
   "dependencies": {
-    "jinsmemesdk-node-noble-uwp": "^0.9.13"
+    "jinsmemesdk-node-noble-uwp": "^0.9.16"
   }
 }

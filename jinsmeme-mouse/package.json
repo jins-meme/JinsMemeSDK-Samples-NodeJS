@@ -1,10 +1,10 @@
 {
   "name": "jinsmeme-mouse",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "jinsmeme mouse",
   "dependencies": {
     "electron-store": "^2.0.0",
-    "jinsmemesdk-node-noble-uwp": "^0.9.13",
+    "jinsmemesdk-node-noble-uwp": "^0.9.16",
     "robotjs": "^0.5.1"
   },
   "main": "src/main.js",
@@ -24,7 +24,7 @@
   "author": "JINS Inc.",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^3.0.6",
+    "electron": "^4.2.0",
     "electron-builder": "^20.29.0"
   }
 }

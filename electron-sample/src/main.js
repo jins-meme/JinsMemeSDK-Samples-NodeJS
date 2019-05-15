@@ -1,7 +1,7 @@
 // Copyright 2018, JINS Inc., all rights reserved
 
 // アプリケーション作成用のモジュールを読み込み、インスタンスを作成
-const memeDevice = require('jinsmemesdk-node-noble-uwp'); 
+const memeDevice = require('jinsmemesdk-node-noble-uwp');
 let memeDevice1 = new memeDevice();
 let memeDevice2 = new memeDevice();
 
@@ -40,15 +40,17 @@ process.on('unhandledRejection', console.dir);
 
 const createWindow = () => {
   // メインウィンドウを作成します
-  mainWindow = new BrowserWindow({width: 600, height: 800});
- 
+  mainWindow = new BrowserWindow({
+    width: 600,
+    height: 800,
+    webPreferences: {
+      nodeIntegration: true
+    }
+  });
+
   // メインウィンドウに表示するURLを指定
-  mainWindow.loadURL(url.format({
-    pathname: path.join(__dirname, 'index.html'),
-    protocol: 'file:',
-    slashes: true
-  }));
- 
+  mainWindow.loadFile('index.html');
+
   // デベロッパーツールの起動
   mainWindow.webContents.openDevTools();
 
@@ -61,7 +63,7 @@ const createWindow = () => {
 
 //  初期化が完了した時の処理
 app.on('ready', createWindow);
- 
+
 // 全てのウィンドウが閉じたときの処理
 app.on('window-all-closed', () => {
   //切断しないとelectronが終了しないので、明示的に切断
@@ -98,7 +100,7 @@ ipcMain.on('start-stop-scan', (event, arg) => {
     memeDevice2.scan();
   }
   //どのインスタンスへの接続ダイアログの記録、connectまで保持
-  device_to_connect = arg;    
+  device_to_connect = arg;
 })
 
 //スキャン＆接続（MACアドレス指定接続用）
@@ -207,6 +209,6 @@ memeDevice2.on('device-status', (arg) => {
     //自動再接続をオンにする
     memeDevice2.setAutoReconnect(true);
     //自動的にリアルタイムモードデータを取得する
-    memeDevice2.startDataReport(realtimeModeCB_dev2); 
+    memeDevice2.startDataReport(realtimeModeCB_dev2);
   }
 });

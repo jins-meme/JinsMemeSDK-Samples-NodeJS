@@ -6,7 +6,7 @@
 		<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsenui.css">
 		<link rel="stylesheet" href="https://unpkg.com/onsenui/css/onsen-css-components.min.css">
 		<script src="https://unpkg.com/onsenui/js/onsenui.min.js"></script>
-		
+
 	</head>
 	<body>
 		<div id ="status_log"></div>
@@ -30,25 +30,22 @@
 			<ons-button id="status" onclick="scanAndConnect(2)">Scan and Connect</ons-button>
 			<ons-button id="status" onclick="memeCommand(2,10)">HW ver</ons-button>
 		</div>
-		
+
 
   <!-- デバイス選択ダイアログ -->
   <ons-dialog id="selectDeviceDialog" cancelable>
-    <ons-list id="deviceList">    
+    <ons-list id="deviceList">
     </ons-list>
   </ons-dialog>
-  
+
   <!-- モーダルウィンドウ -->
   <ons-modal id="modal">
     <p>接続中...</p>
     <ons-icon icon="spinner" size="28px" spin></ons-icon>
-  </ons-modal> 
+  </ons-modal>
 
 	</body>
 	<script>
-		const { webFrame } = require('electron')
-		webFrame.registerURLSchemeAsPrivileged('file')
-
 		//IPCの宣言
 		const {ipcRenderer} = require('electron')
 		//let deviceDialogShow = 0;
@@ -58,7 +55,7 @@
 		ipcRenderer.on('status-msg', (event, msg) => {
 			document.getElementById('status_log').innerHTML = msg;
 		})
-		
+
 		//Scan開始
 		const startStopScan = arg => {
 			deviceList.innerHTML = '<ons-list-header>デバイスを選択</ons-list-header>';
