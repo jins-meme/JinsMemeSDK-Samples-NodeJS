@@ -1,6 +1,6 @@
 {
   "name": "jinsmeme-electron-sample",
-  "version": "0.10.0",
+  "version": "0.10.1",
   "description": "jinsmeme integration sample for electron",
   "main": "main.js",
   "scripts": {
@@ -12,6 +12,7 @@
     "electron": "^4.2.0"
   },
   "dependencies": {
-    "jinsmemesdk-node-noble-uwp": "^0.9.16"
+    "noble-uwp": "^0.6.2",
+    "jinsmemesdk-node-noble-x": "^0.10.1"
   }
 }

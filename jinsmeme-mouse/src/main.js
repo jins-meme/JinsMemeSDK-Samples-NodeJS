@@ -1,6 +1,7 @@
 // Copyright 2018 Taiki Komoda, JINS Inc, all rights reserved
 
-const memeDevice = require('jinsmemesdk-node-noble-uwp');
+module.exports.noble_type = 'noble-uwp';
+const memeDevice = require('jinsmemesdk-node-noble-x');
 let memeDevice1 = new memeDevice();
 memeDevice1.setAppClientID("app_id", "app_secret",
   function(){

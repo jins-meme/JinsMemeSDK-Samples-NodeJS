@@ -4,6 +4,10 @@ A Node.js application samples for JinsMemeSDK-NodeJS
 
 JinsMemeSDK-NodeJSを利用したNode.jsサンプルです。
 
+## 注意点
+
+JinsMemeSDK-NodeJS v0.10 からnobleの扱い方が変更されています。nobleはSDKのpackage.jsonではなくアプリ側に記載するようになっていますのでご注意ください。
+
 ## 概要
 
 以下の3サンプルを収録しています。
