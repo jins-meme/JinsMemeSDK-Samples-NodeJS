@@ -1,6 +1,6 @@
 {
   "name": "jinsmeme-simple-sample",
-  "version": "0.9.11",
+  "version": "0.10.1",
   "description": "jinsmeme sdk simplest sample",
   "main": "meme_sample.js",
   "scripts": {},
@@ -8,6 +8,7 @@
   "license": "MIT",
   "devDependencies": {},
   "dependencies": {
-    "jinsmemesdk-node-noble-uwp": "^0.9.16"
+    "noble-uwp": "^0.6.2",
+    "jinsmemesdk-node-noble-x": "^0.10.1"
   }
 }

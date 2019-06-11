@@ -1,10 +1,11 @@
 {
   "name": "jinsmeme-mouse",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "jinsmeme mouse",
   "dependencies": {
     "electron-store": "^2.0.0",
-    "jinsmemesdk-node-noble-uwp": "^0.9.16",
+    "noble-uwp": "^0.6.2",
+    "jinsmemesdk-node-noble-x": "^0.10.1",
     "robotjs": "^0.5.1"
   },
   "main": "src/main.js",
