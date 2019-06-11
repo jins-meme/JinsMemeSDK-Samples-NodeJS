@@ -27,7 +27,7 @@ electronで2台のJINS MEMEに接続するサンプルです。mainプロセス�
     - ^0.10.1
 - electron
     - License: MIT
-    - ^4.2.0 (3.xでも動作確認済みです)
+    - ^4.2.4 (3.xでも動作確認済みです)
 - electron-store
     - License: MIT
     - ^2.0.0
@@ -51,8 +51,8 @@ electronサンプルでは以下のUIライブラリを使用しています。
 1. main.js内のアプリ認証(app_id/app_secret)情報、接続するMEMEのMACアドレス(mac_addr_to_connect, **コロンなし小文字** )を記載
 1. Electronのリビルド [Building for electron](https://github.com/jasongin/noble-uwp)
     ```
-    npm rebuild --runtime=electron --target=4.2.0 --arch=x64 --rebuild --disturl=https://atom.io/download/electron --build_from_source=true
+    npm rebuild --runtime=electron --target=4.2.4 --arch=x64 --rebuild --disturl=https://atom.io/download/electron --build_from_source=true
     ```
     - Windows-Build-Toolsは必ず **--vs2015** をつけてインストール
-    - USB周りのビルドエラーが出るときは [micro:bit を Scratch 2 + Bluetooth で使う](https://qiita.com/memakura/items/dc5cf2ff39d24ceb53ff) を参考にusb/libusb/libusb/strerror.c のソースを修正しリビルド
+    - USB周りのビルドエラーが出るときは usb/libusb/libusb/strerror.c のソースを修正し(ロシア語〜Ruを外す)リビルド
 1. `npx electron src`

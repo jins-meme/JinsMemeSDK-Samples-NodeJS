@@ -6,7 +6,7 @@ JinsMemeSDK-NodeJSを利用したNode.jsサンプルです。
 
 ## 注意点
 
-JinsMemeSDK-NodeJS v0.10 からnobleの扱い方が変更されています。nobleはSDKのpackage.jsonではなくアプリ側に記載するようになっていますのでご注意ください。
+JinsMemeSDK-NodeJS v0.10 からnobleの扱い方が変更されています。nobleはSDKのpackage.jsonから読み込みはされないのでアプリ側で記載されるようご注意ください。
 
 ## 概要
 
@@ -24,5 +24,4 @@ MIT
 
 - それぞれのフォルダのREADME.mdを参照してください。
 - electronを使用するelectron-sample, jinsmeme-mouseに関してはビルドがnode/electronのバージョンに大きく影響を受けますので、nvmなどを利用し複数のNodejs環境を整えた上でのビルドをオススメいたします。
-- 以下の記事を参考にしてください。
-https://qiita.com/komde/items/d31880c6c11f760425b9
+- ビルドの詳細に関しては[こちらの記事](https://qiita.com/komde/items/d31880c6c11f760425b9)を参考にしてください。
