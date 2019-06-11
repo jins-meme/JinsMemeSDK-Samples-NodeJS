@@ -6,7 +6,7 @@ electronで2台のJINS MEMEに接続するサンプルです。mainプロセス�
 
 ## Prerequisites 必要な外部パッケージ
 
-事前に以下のパッケージを組み込んでください。jinsmemesdk-node-nobleとjinsmemesdk-node-noble-uwpはどちらか片方が必要です。
+事前に以下のパッケージを組み込んでください。標準ではnoble-uwpがpackage.jsonで設定されています。
 
 - noble派生のいずれかを読み込み
     - noble-uwp

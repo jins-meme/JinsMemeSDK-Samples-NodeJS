@@ -22,7 +22,7 @@ releases をご覧ください。
 
 ## Prerequisites for build ビルドに必要な外部パッケージ
 
-事前に以下のパッケージを組み込んでください。jinsmemesdk-node-nobleとjinsmemesdk-node-noble-uwpはどちらか片方が必要です。
+事前に以下のパッケージを組み込んでください。標準ではnoble-uwpがpackage.jsonで設定されています。
 
 - noble派生のいずれかを読み込み
     - noble-uwp
@@ -68,7 +68,7 @@ electronサンプルでは以下のUIライブラリを使用しています。
     - Mac: `module.exports.noble_type = 'noble-mac';`
     - Linux: `module.exports.noble_type = 'noble';`
 1. package.json の dependencies も noble-uwp/noble-mac/noble を必要に応じて修正
-1. npm install '**Listed in prerequisites**'
+1. npm install
 1. main.js内のアプリ認証(app_id/app_secret)情報を記載
 1. [Electronのリビルド](http://robotjs.io/docs/electron)
     ```
