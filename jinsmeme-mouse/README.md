@@ -22,13 +22,14 @@ releases をご覧ください。
 
 ## Prerequisites for build ビルドに必要な外部パッケージ
 
-事前に以下のパッケージを組み込んでください。標準ではnoble-uwpがpackage.jsonで設定されています。
+事前に以下のパッケージを組み込んでください。標準ではnoble-winrtがpackage.jsonで設定されています。
 
 - noble派生のいずれかを読み込み
-    - noble-uwp
+    - noble-winrt(https://github.com/Timeular)
         - Windows(Windows 10 build 10.0.15063 or later)のBLEライブラリ
         - MIT License
-        - ^0.5.2
+        - ^0.0.3
+        - npm経由だと異なるものがインストールされるのでgithub経由でインストールしてください
     - noble-mac
         - Mac(macOS 10.7 or later)のBLEライブラリ
         - MIT License
@@ -40,10 +41,10 @@ releases をご覧ください。
 - jinsmemesdk-node-noble-x
     - JINS MEME SDK 部分です。
     - License: [JINS MEME SDK 利用規約(ja)](https://developers.jins.com/ja/sdks/terms_and_conditions/) [(en)](https://developers.jins.com/en/sdks/terms_and_conditions/)
-    - ^0.10.1
+    - ^0.11.1
 - electron
     - License: MIT
-    - ^4.2.4 (3.xでも動作確認済みです)
+    - ^4.2.0 (3.x, 5.x, 6.xでも動作確認済みです)
 - electron-store
     - License: MIT
     - ^2.0.0
@@ -64,10 +65,10 @@ electronサンプルでは以下のUIライブラリを使用しています。
 ## ビルド手順
 
 1. git clone したあと、jinsmeme-mouse/src/main.js の以下のnoble指定個所を必要に応じて修正してください
-    - Windows 10: `module.exports.noble_type = 'noble-uwp';`
+    - Windows 10: `module.exports.noble_type = 'noble-winrt';`
     - Mac: `module.exports.noble_type = 'noble-mac';`
     - Linux: `module.exports.noble_type = 'noble';`
-1. package.json の dependencies も noble-uwp/noble-mac/noble を必要に応じて修正
+1. package.json の dependencies も noble-winrt/noble-mac/noble を必要に応じて修正
 1. npm install
 1. main.js内のアプリ認証(app_id/app_secret)情報を記載
 1. [Electronのリビルド](http://robotjs.io/docs/electron)
