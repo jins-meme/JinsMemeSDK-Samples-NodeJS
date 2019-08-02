@@ -8,7 +8,7 @@
   "license": "MIT",
   "devDependencies": {},
   "dependencies": {
-    "noble-uwp": "github:Timeular/noble-winrt",
+    "noble-winrt": "github:Timeular/noble-winrt",
     "jinsmemesdk-node-noble-x": "^0.11.1"
   }
 }

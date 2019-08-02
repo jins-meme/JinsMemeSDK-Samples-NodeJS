@@ -4,7 +4,7 @@
   "description": "jinsmeme mouse",
   "dependencies": {
     "electron-store": "^2.0.0",
-    "noble-uwp": "github:Timeular/noble-winrt",
+    "noble-winrt": "github:Timeular/noble-winrt",
     "jinsmemesdk-node-noble-x": "^0.11.1",
     "robotjs": "^0.5.1"
   },
