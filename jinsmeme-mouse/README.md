@@ -44,7 +44,7 @@ releases をご覧ください。
     - ^0.11.1
 - electron
     - License: MIT
-    - ^4.2.0 (3.x, 5.x, 6.xでも動作確認済みです)
+    - ^4.2.0 (5.x, 6.xではWindowsのビルドが通らない可能性があります)
 - electron-store
     - License: MIT
     - ^2.0.0
@@ -71,10 +71,9 @@ electronサンプルでは以下のUIライブラリを使用しています。
 1. package.json の dependencies も noble-winrt/noble-mac/noble を必要に応じて修正
 1. npm install
 1. main.js内のアプリ認証(app_id/app_secret)情報を記載
-1. [Electronのリビルド](http://robotjs.io/docs/electron)
+1. 必要に応じて[Electronのリビルド](http://robotjs.io/docs/electron)
     ```
     npm rebuild --runtime=electron --target=4.2.4 --arch=x64 --rebuild --disturl=https://atom.io/download/electron --build_from_source=true --abi=64
     ```
-    - Windows-Build-Toolsは必ず **--vs2015** をつけてインストール
     - USB周りのビルドエラーが出るときは usb/libusb/libusb/strerror.c のソースを修正し(ロシア語〜Ruを外す)リビルド
 1. `npx electron src`
