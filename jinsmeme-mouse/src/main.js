@@ -165,7 +165,8 @@ ipcMain.on('start-stop-scan', (event, arg) => {
 
 //見つかったデバイスをメインウィンドウに知らせる
 memeDevice1.on('device-discovered', (device) => {
-  mainWindow.webContents.send('reply-to-mainwindow', device)
+  const deviceInfo = {mac_addr: device.mac_addr, rssi: device.rssi};
+  mainWindow.webContents.send('reply-to-mainwindow', deviceInfo);
 })
 
 //接続の受信とmemeDevへの指示

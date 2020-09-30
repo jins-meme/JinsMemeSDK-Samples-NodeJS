@@ -9,7 +9,7 @@
   "author": "JINS Inc.",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^7.0.0"
+    "electron": "^10.1.3"
   },
   "dependencies": {
     "noble-winrt": "github:Timeular/noble-winrt",

@@ -117,22 +117,25 @@ ipcMain.on('scan-and-connect', (event, arg) => {
 //見つかったデバイスをメインウィンドウに知らせる
 memeDevice1.on('device-discovered', (device) => {
   if(device_to_connect == 1){
-    mainWindow.webContents.send('reply-to-mainwindow', device)
+    //使用するnoble moduleによってdeviceのserializeに失敗するので、必要な情報のみ渡す
+    const deviceInfo = {mac_addr: device.mac_addr, rssi: device.rssi}
+    mainWindow.webContents.send('reply-to-mainwindow', deviceInfo)
   }
 })
 memeDevice2.on('device-discovered', (device) => {
   if(device_to_connect == 2){
-    mainWindow.webContents.send('reply-to-mainwindow', device)
+    const deviceInfo = {mac_addr: device.mac_addr, rssi: device.rssi}
+    mainWindow.webContents.send('reply-to-mainwindow', deviceInfo)
   }
 })
 
 //接続の受信と指示
 ipcMain.on('connect-device', (event, arg) => {
   if(device_to_connect == 1){
-    memeDevice1.connect(arg,1);
+    memeDevice1.connect(arg, 1);
   }
   if(device_to_connect == 2){
-    memeDevice2.connect(arg,1);
+    memeDevice2.connect(arg, 1);
   }
   device_to_connect = null;
 })
