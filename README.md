@@ -1,5 +1,13 @@
 # JinsMemeSDK-Samples-NodeJS
 
+## 【重要】サポート終了のお知らせ
+
+JINS MEME は　2021年3月末をもちましてサポートを終了しています。SDKにつきましても2021年9月末をもって動作しなくなりますのでご注意ください。
+
+https://jins-meme.com/ja/support/user-support/jins-meme%E3%81%AE%E3%82%B5%E3%83%9D%E3%83%BC%E3%83%88%E7%B5%82%E4%BA%86%E3%81%AB%E3%81%A4%E3%81%84%E3%81%A6/
+
+## 概要
+
 A Node.js application samples for JinsMemeSDK-NodeJS
 
 JinsMemeSDK-NodeJSを利用したNode.jsサンプルです。
